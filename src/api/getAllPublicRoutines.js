@@ -1,4 +1,4 @@
-const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api/"; //"http://localhost:3000/api";
+const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api/"; //"http://localhost:3000/api";
 export const getAllPublicRoutines = async () => {
   try {
     const response = await fetch(BASE_URL + "/routines", {
