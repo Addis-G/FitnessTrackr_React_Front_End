@@ -437,3 +437,42 @@ table {
   align-items: center;
   justify-content: center;
 }
+.creator-name {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: tomato;
+  color: white;
+  border: 3px solid orange;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 10px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+.modal-child {
+  position: absolute;
+  top: 15rem;
+  left: 40rem;
+  background-color: lightgrey;
+  width: 40rem;
+  height: 50rem;
+  border: 3px solid orange;
+  border-radius: 5px;
+}
+.activity-name {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgrey;
+  color: white;
+  border: 1px solid orange;
+  cursor: pointer;
+  padding: 0 10px;
+  margin-left: 10px;
+
+  border-radius: 5px;
+}

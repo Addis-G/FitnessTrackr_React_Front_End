@@ -10,3 +10,4 @@ export { default as LogOut } from "./logout.js";
 export { default as RoutineEditor } from "./routinEditor.js";
 export { default as NewRoutineActivity } from "./AddRoutineActivity";
 export { default as Home } from "./Home";
+export { default as UserPublicRoutines } from "./userPublicRoutines";

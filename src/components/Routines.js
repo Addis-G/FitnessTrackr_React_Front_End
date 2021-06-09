@@ -2,8 +2,12 @@ import { React, Fragment, useEffect, useState } from "react";
 
 import { getAllPublicRoutines } from "../api/getAllPublicRoutines";
 
+import UserPublicRoutines from "./userPublicRoutines";
 const Routines = (props) => {
   const [publicRoutines, setPublicRoutines] = useState([]);
+  const [modalStatus, setModalStatus] = useState("modal-hidden");
+  const [selectdPR, setSelectedPR] = useState([]);
+
   useEffect(() => {
     async function getAllPublicR() {
       try {
@@ -15,8 +19,30 @@ const Routines = (props) => {
     }
     getAllPublicR();
   }, []);
+
   const { setCurrentTab } = props;
   setCurrentTab(props.match.path);
+
+  const handleCreatorClick = (selectedCreatorName) => {
+    setSelectedPR(
+      publicRoutines.filter(
+        ({ creatorName }) => creatorName == selectedCreatorName
+      )
+    );
+
+    setModalStatus("modal-block");
+  };
+  const handleActivityClick = (selectedActivityName) => {
+    setSelectedPR(
+      publicRoutines.filter((routine) =>
+        routine.activities.some(
+          (activity) => activity.name == selectedActivityName
+        )
+      )
+    );
+
+    setModalStatus("modal-block");
+  };
 
   return (
     <div className="content-container">
@@ -32,7 +58,7 @@ const Routines = (props) => {
             </div>
             {publicRoutines?.map(
               ({ goal, name, isPublic, id, activities, creatorName }) => (
-                <div key={id ? id : 90} className="routines-list">
+                <div key={id} className="routines-list">
                   <span>{id}</span>
                   <span>
                     <p>{name}</p>{" "}
@@ -41,7 +67,16 @@ const Routines = (props) => {
                     <p>{goal}</p>
                   </span>
                   <span>{isPublic ? "Yes" : "No"}</span>
-                  <span>{creatorName}</span>
+                  <span>
+                    <span
+                      className="creator-name"
+                      onClick={() => {
+                        handleCreatorClick(creatorName);
+                      }}
+                    >
+                      {creatorName}
+                    </span>
+                  </span>
                   <span className="activities-info">
                     Number of Activities {activities && activities.length}
                   </span>
@@ -54,7 +89,14 @@ const Routines = (props) => {
                   </div>
                   {activities?.map(({ name, description, duration, count }) => (
                     <div className="activities-list">
-                      <span>{name}</span>
+                      <span>
+                        <span
+                          className="activity-name"
+                          onClick={() => handleActivityClick(name)}
+                        >
+                          {name}
+                        </span>
+                      </span>
                       <span>{description}</span>
                       <span>{duration}</span>
                       <span>{count}</span>
@@ -68,6 +110,11 @@ const Routines = (props) => {
           <></>
         )}
       </div>
+      <UserPublicRoutines
+        selectdPR={selectdPR}
+        setModalStatus={setModalStatus}
+        modalStatus={modalStatus}
+      />
     </div>
   );
 };
